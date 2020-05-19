@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block heading %}
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"> Theta: {{ theta }} </div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">{{ progress }}%</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ title }}</div>
+      <div class="panel-body">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ wtf.form_field(form.answer) }}
+            <button id="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}

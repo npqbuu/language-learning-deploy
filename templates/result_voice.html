@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>RESULT: {{ result }}</h3>
+            <h3>WORD: {{ word }}</h3>
+            <audio controls>
+                <source src="{{ url_for('static', filename='pronounciation_dict.wav') }}">
+            </audio>
+            <h3>YOUR ANSWER: {{ answer }}</h3>
+            <audio controls>
+                <source src="{{ url_for('static', filename='pronounciation_user.wav') }}">
+            </audio>
+            <form action="/pronounciation">
+                <button id="btnNext" type="submit" class="btn btn-primary">Next Question</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
