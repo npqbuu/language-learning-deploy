@@ -1,8 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from . import db
 from flask_login import UserMixin
 from sqlalchemy.dialects.postgresql import ARRAY
-
-db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,3 +22,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
 
+class RandomWord(db.Model):
+    __tablename__ = "RandomWord"
+    id = db.Column(db.Integer, primary_key=True)
+    word = db.Column(db.String())

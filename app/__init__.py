@@ -1,11 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_redis import FlaskRedis
-
+from flask_session import Session
+from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 # Globally accessible libraries
 db = SQLAlchemy()
-r = FlaskRedis()
+login_manager = LoginManager()
+bootstrap = None
+
 
 def create_app():
     """Initialize the core application."""
@@ -14,14 +17,15 @@ def create_app():
 
     # Initialize Plugins
     db.init_app(app)
-    r.init_app(app)
+    Session(app)
+    login_manager.init_app(app)
+    global bootstrap
+    bootstrap = Bootstrap(app)
 
     with app.app_context():
-        # Include our Routes
-        from . import routes
+        from . import views, auth
 
-        # Register Blueprints
-        app.register_blueprint(auth.auth_bp)
-        app.register_blueprint(admin.admin_bp)
+        # Create Database Models
+        db.create_all()
 
         return app
