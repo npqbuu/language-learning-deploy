@@ -41,8 +41,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation w
 # Link the Flask app with the database (no Flask app is actually being run yet).
 db.init_app(app)
 
-@click.command(name='create_tables')
-@with_appcontext
+@app.cli.command('create_tables')
 def create_tables():
     db.create_all()
 
