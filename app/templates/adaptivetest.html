@@ -1,11 +1,9 @@
 {% extends "layout.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block heading %}
+{% block content %}
+{{ super() }}
 
-{% endblock %}
-
-{% block body %}
 <div class="container">
     <div class="row">
         <div class="col-md-4"> Theta: {{ theta }} </div>
