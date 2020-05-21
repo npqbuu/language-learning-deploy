@@ -1,78 +1,83 @@
-{% extends "bootstrap/base.html" %}
+{% extends "layout.html" %}
 
 {% block title %}
 Stopatois
 {% endblock %}
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='layout.css')}}">
-{% endblock %}
-
-{% block navbar %}
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow">
-  <div class="container">
-    <a class="navbar-brand" >Stopatois</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-{% endblock %}
-
 {% block content %}
+{{ super() }}
 <!-- Page Content -->
 <div class="container">
-  <div class="card border-0 shadow my-5">
-    <div class="card-body p-5">
-      <!-- Project One -->
-      <div class="row">
-        <div class="col-md-7">
-          <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-          </a>
+
+  <!-- Jumbotron Header -->
+  <header class="jumbotron my-4">
+    <h1 class="display-3">A Warm Welcome!</h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+    <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
+  </header>
+
+  <!-- Page Features -->
+  <div class="row text-center">
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Grammar</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
         </div>
-        <div class="col-md-5">
-          <h3>CAT test</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-          <a class="btn btn-primary" href="{{ url_for('adaptivetest') }}">Start</a>
+        <div class="card-footer">
+          <a href="{{ url_for('adaptivetest') }}" class="btn btn-primary">Find Out More!</a>
         </div>
       </div>
-      <!-- /.row -->
-
-      <hr>
-
-      <!-- Project Two -->
-      <div class="row">
-        <div class="col-md-7">
-          <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3>Pronounciation test</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
-          <a class="btn btn-primary" href="{{ url_for('pronounciation') }}">Start</a>
-        </div>
-      </div>
-      <!-- /.row -->
     </div>
-  </div>
-</div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Vocabulary</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary">Find Out More!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Listening</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary">Find Out More!</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Pronounciation</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('pronounciation') }}" class="btn btn-primary">Find Out More!</a>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /.row -->
+</div> <!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Stopatois 2020</p>
+    </div> <!-- /.container -->
+</footer>
 {% endblock %}

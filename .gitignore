@@ -201,3 +201,4 @@ pip-selfcheck.json
 
 *.wav
 flask_session/
+bash.exe.stackdump
