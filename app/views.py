@@ -97,10 +97,10 @@ def pronounciation():
 @app.route("/checkpronounciation", methods=['POST'])
 def checkpronounciation():
     # Open file and write binary (blob) data
-    with open(url_for('static', filename='pronounciation_user.wav'), 'wb') as f:
+    with open(url_for('static', filename='audio/pronounciation_user.wav'), 'wb') as f:
         f.write(request.data)
     # Speech recognition
-    response = recognize_speech(sr.Recognizer(), sr.AudioFile(url_for('static', filename='pronounciation_user.wav')))
+    response = recognize_speech(sr.Recognizer(), sr.AudioFile(url_for('static', filename='audio/pronounciation_user.wav')))
     session['answer'] = response['transcription']
     
     return redirect('/result_voice')
@@ -121,7 +121,7 @@ def result_voice():
     list_audios = soup.find_all('audio')
     for link in list_audios:
         try:
-            urllib.request.urlretrieve(link['src'], url_for('static', filename='pronounciation_dict.wav'))
+            urllib.request.urlretrieve(link['src'], url_for('static', filename='audio/pronounciation_dict.wav'))
             break
         except:
             print('Broken link')
