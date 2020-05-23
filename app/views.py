@@ -23,10 +23,7 @@ import numpy as np
 
 @app.route("/")
 def index():
-    session.clear()
-
     # Test zone-----------------
-    session.clear()
     session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
     bank = generate_bank(len(session['all_questions']))
     bank[:, 1] = [question.diff for question in session['all_questions']]
@@ -38,18 +35,21 @@ def index():
     session['progress'] = 0
     session['theta'] = session['cat'].thetas[0]
     # --------------------------
-
-    return render_template("index.html")
+    if current_user.is_anonymous:
+        name = ''
+    else:     
+        name = current_user.username
+    return render_template("index.html", name=name)
 
 @app.route("/about")
 def about():
 
     return render_template("about.html")
 
-@app.route('/dashboard')
+@app.route('/profile')
 @login_required
-def dashboard():
-    return render_template('dashboard.html', name=current_user.username)
+def profile():
+    return render_template('profile.html', name=current_user.username)
 
 @app.route("/adaptivetest", methods=["GET", "POST"])
 def adaptivetest():
@@ -70,7 +70,7 @@ def adaptivetest():
 
         (_stop, session['item_index']) = session['cat'].item_selection() # Get item
         if _stop:
-                return redirect('/result')
+                return redirect(url_for('result_adaptivetest'))
 
         session['cat'].administered_items.append(session['item_index']) # Add new item to list
         session['progress'] = (len(session['cat'].thetas) - 1) * 10 # Update progess
@@ -81,10 +81,10 @@ def adaptivetest():
     # Render Template
     return render_template("adaptivetest.html", title = title, theta = session['theta'], progress = session['progress'], form = form)
 
-@app.route("/result")
-def result():
+@app.route("/adaptivetest/result")
+def result_adaptivetest():
     theta = session['cat'].thetas[-1]
-    return render_template("result.html", theta = theta)
+    return render_template("result_adaptivetest.html", theta = theta)
 
 @app.route("/pronounciation", methods=['GET', 'POST'])
 def pronounciation():
@@ -108,10 +108,10 @@ def checkpronounciation():
     response = recognize_speech(sr.Recognizer(), sr.AudioFile(url_for('static', filename='audio/pronounciation_user.wav')))
     session['answer'] = response['transcription']
     
-    return redirect('/result_voice')
+    return redirect('/pronounciation/result')
 
-@app.route("/result_voice")
-def result_voice():
+@app.route("/pronounciation/result")
+def result_pronounciation():
     word = session['word']
     answer = session['answer']
     if answer != None:
@@ -131,4 +131,4 @@ def result_voice():
         except:
             print('Broken link')
 
-    return render_template("result_voice.html", result = result, word= word, answer = answer)
+    return render_template("result_pronounciation.html", result = result, word= word, answer = answer)

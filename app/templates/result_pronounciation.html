@@ -15,8 +15,8 @@
             <audio controls>
                 <source src="{{ url_for('static', filename='audio/pronounciation_user.wav') }}">
             </audio>
-            <form action="/pronounciation">
-                <button id="btnNext" type="submit" class="btn btn-primary">Next Question</button>
+            <form action="{{ {% url_for('pronounciation') %} }}">
+                <button id="btnNext" type="submit" class="btn btn-primary">Next Word</button>
             </form>
         </div>
     </div>

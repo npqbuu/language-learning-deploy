@@ -8,7 +8,7 @@ Login
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('.static', filename='login-register.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='login-register.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -24,6 +24,7 @@ Login
             {{ wtf.form_field(form.username) }}
             {{ wtf.form_field(form.password) }}
             {{ wtf.form_field(form.remember) }}
+            </br>
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
           </form>   
           <a class="d-block text-center mt-2 small" href="{{ url_for('signup') }}">New User? Start here.</a>

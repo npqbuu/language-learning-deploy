@@ -8,12 +8,16 @@ Stopatois
 {{ super() }}
 <!-- Page Content -->
 <div class="container">
-
+  
   <!-- Jumbotron Header -->
   <header class="jumbotron my-4">
-    <h1 class="display-3">A Warm Welcome!</h1>
+    {% if current_user.is_anonymous %}
+    <h1 class="display-3">A Warm Welcome</h1>
     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-    <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
+    <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">Register Now!</a>
+    {% else %}
+    <h1 class="display-3">Hello <i>{{ name }}</i>, welcome back!</h1>
+    {% endif %}
   </header>
 
   <!-- Page Features -->
@@ -27,7 +31,7 @@ Stopatois
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
         </div>
         <div class="card-footer">
-          <a href="{{ url_for('adaptivetest') }}" class="btn btn-primary">Find Out More!</a>
+          <a href="{{ url_for('adaptivetest') }}" class="btn btn-primary">Find Out More</a>
         </div>
       </div>
     </div>
@@ -40,7 +44,7 @@ Stopatois
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn btn-primary">Find Out More!</a>
+          <a href="#" class="btn btn-primary">Find Out More</a>
         </div>
       </div>
     </div>
@@ -53,7 +57,7 @@ Stopatois
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn btn-primary">Find Out More!</a>
+          <a href="#" class="btn btn-primary">Find Out More</a>
         </div>
       </div>
     </div>
@@ -66,7 +70,7 @@ Stopatois
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
         </div>
         <div class="card-footer">
-          <a href="{{ url_for('pronounciation') }}" class="btn btn-primary">Find Out More!</a>
+          <a href="{{ url_for('pronounciation') }}" class="btn btn-primary">Find Out More</a>
         </div>
       </div>
     </div>
