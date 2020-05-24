@@ -2,11 +2,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from flask_login import LoginManager
+from flask_admin import Admin
 from flask_bootstrap import Bootstrap
 
 # Globally accessible libraries
 db = SQLAlchemy()
 login_manager = LoginManager()
+admin = Admin()
 bootstrap = None
 
 
@@ -19,6 +21,8 @@ def create_app():
     db.init_app(app)
     Session(app)
     login_manager.init_app(app)
+    admin.init_app(app)
+
     global bootstrap
     bootstrap = Bootstrap(app)
 

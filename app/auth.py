@@ -5,11 +5,12 @@ from flask_login import UserMixin, login_user, login_required, logout_user, curr
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask import current_app as app
+from flask_admin.contrib.sqla import ModelView
 
 # Import components
 from .models import *
 from .forms import *
-from . import login_manager
+from . import login_manager, admin
 
 login_manager.login_view = 'login'
 
@@ -61,3 +62,5 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+admin.add_view(ModelView(User, db.session))

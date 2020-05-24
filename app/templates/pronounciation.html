@@ -6,18 +6,12 @@
 <div class="container">
   <h4 class="card-title">Word: {{ word }}</h4>
   <div class="row text-center">
-    <div id="controls">
-      <div class="col-lg-3 col-md-6 mb-4">
-        <button id="recordButton" type="submit" class="btn btn-primary">Record</button>  
-      </div>
-      <div class="col-lg-3 col-md-6 mb-4">
-        <button id="stopButton" type="submit" class="btn btn-primary" disabled>Stop</button>  
-      </div>
-      <div class="col-lg-3 col-md-6 mb-4">
-        <form action="{{ url_for('result_pronounciation') }}">
-          <button id="btnSumbit" type="submit" class="btn btn-primary">Check Answer</button>
+    <div id="controls" class="btn-group" role="group">
+      <button id="recordButton" type="submit" class="btn btn-success btn-lg">Record</button>  
+      <button id="stopButton" type="submit" class="btn btn-danger btn-lg" disabled>Stop</button>  
+      <form action="{{ url_for('result_pronounciation') }}">
+        <button id="btnSumbit" type="submit" class="btn btn-primary btn-lg">Check Answer</button>
       </form>
-      </div>
     </div>
   </div>
 </div>
