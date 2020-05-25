@@ -20,6 +20,7 @@
 {% block script %}
 {{ super() }}
 
-<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<!--https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js-->>
+<script src="{{ url_for('static', filename = 'js/recorder.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/pronounciation.js') }}"></script>
 {% endblock %}

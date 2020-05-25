@@ -23,6 +23,7 @@ import numpy as np
 
 @app.route("/")
 def index():
+
     # Test zone-----------------
     session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
     bank = generate_bank(len(session['all_questions']))
@@ -99,8 +100,8 @@ def pronounciation():
 
     return render_template("pronounciation.html", word = session['word'], result = result)
 
-@app.route("/checkpronounciation", methods=['POST'])
-def checkpronounciation():
+@app.route("/pronounciation/check", methods=['POST'])
+def check_pronounciation():
     # Open file and write binary (blob) data
     with open(url_for('static', filename='audio/pronounciation_user.wav'), 'wb') as f:
         f.write(request.data)

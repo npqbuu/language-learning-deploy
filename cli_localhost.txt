@@ -1,3 +1,3 @@
 export SECRET_KEY="pib1secretkey"
-export DATABASE_URL="postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/pib1"
+export DATABASE_URL="postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/mylocaldb"
 export FLASK_ENV="development"

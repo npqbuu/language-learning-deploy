@@ -6,10 +6,10 @@ import string
 import csv
 import numpy as np
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-def pronounciation_questionbank():
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    link = os.path.join(basedir, 'words.txt')
+def pronounciation_questionbank(): 
+    link = os.path.join(basedir, 'static/data/words.txt')
     with open(link, 'r') as f:
         lines = f.read().split(',')
     list_lines = []

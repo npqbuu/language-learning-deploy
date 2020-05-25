@@ -93,7 +93,7 @@ function stopRecording() {
 }
 
 function sendData(blob) {
-	fetch('/checkpronounciation', {
+	fetch('/pronounciation/check', {
 		method: "POST",
 		body: blob
 	  });
