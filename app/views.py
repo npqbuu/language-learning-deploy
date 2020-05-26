@@ -13,10 +13,10 @@ from sqlalchemy.orm import load_only
 from .models import *
 from .forms import *
 from .crud import create
+from app import staticdir
 
 # Algorithm
 from .algorithm import CAT, generate_bank, recognize_speech
-
 import speech_recognition as sr
 import urllib
 from bs4 import BeautifulSoup
@@ -100,25 +100,16 @@ def pronounciation():
 
     return render_template("pronounciation.html", word = session['word'], result = result)
 
-@app.route("/pronounciation/check", methods=['POST'])
-def check_pronounciation():
-    # Open file and write binary (blob) data
-    with open(url_for('static', filename='audio/pronounciation_user.wav'), 'wb') as f:
-        f.write(request.data)
-    # Speech recognition
-    response = recognize_speech(sr.Recognizer(), sr.AudioFile(url_for('static', filename='audio/pronounciation_user.wav')))
-    session['answer'] = response['transcription']
-    
-    return redirect('/pronounciation/result')
-
-@app.route("/pronounciation/result")
+@app.route("/pronounciation/result", methods=['POST'])
 def result_pronounciation():
     word = session['word']
-    answer = session['answer']
-    if answer != None:
-        result = (word.lower() == answer.lower())
-    else:
-        result = "Unable to recognize speech"
+
+    # Open file and write binary (blob) data
+    with open(os.path.join(staticdir, 'audio/pronounciation_user.wav'), 'wb') as f:
+        f.write(request.data)
+    # Speech recognition
+    response = recognize_speech(sr.Recognizer(), sr.AudioFile(os.path.join(staticdir, 'audio/pronounciation_user.wav')))
+    session['answer'] = response['transcription']
 
     # Get correct pronounciation mp3 file from online dictionary Lexico
     url = 'https://www.lexico.com/en/definition/' + word.lower()
@@ -127,9 +118,15 @@ def result_pronounciation():
     list_audios = soup.find_all('audio')
     for link in list_audios:
         try:
-            urllib.request.urlretrieve(link['src'], url_for('static', filename='audio/pronounciation_dict.wav'))
+            urllib.request.urlretrieve(link['src'], os.path.join(staticdir, 'audio/pronounciation_dict.wav'))
             break
         except:
             print('Broken link')
 
-    return render_template("result_pronounciation.html", result = result, word= word, answer = answer)
+    answer = session['answer']
+    if answer != None:
+        result = (word.lower() == answer.lower())
+    else:
+        result = "Unable to recognize speech"
+
+    return render_template("result_pronounciation.html", result = result, word= word, answer = answer.capitalize())

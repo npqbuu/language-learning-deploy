@@ -5,22 +5,19 @@
 
 <div class="container">
   <h4 class="card-title">Word: {{ word }}</h4>
-  <div class="row text-center">
-    <div id="controls" class="btn-group" role="group">
-      <button id="recordButton" type="submit" class="btn btn-success btn-lg">Record</button>  
-      <button id="stopButton" type="submit" class="btn btn-danger btn-lg" disabled>Stop</button>  
-      <form action="{{ url_for('result_pronounciation') }}">
-        <button id="btnSumbit" type="submit" class="btn btn-primary btn-lg">Check Answer</button>
-      </form>
+  <div class="row">
+    <div id="controls" class="btn-group">
+        <button id="recordButton" type="submit" class="btn btn-success btn-lg">Record</button>  
+        <form action="{{ url_for('result_pronounciation') }}">
+          <button id="stopButton" type="submit" class="btn btn-danger btn-lg" disabled>Submit</button> 
+        </form>
     </div>
-  </div>
+    <div class="col-md-12" id="formats"> </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
-{% block script %}
-{{ super() }}
-
-<!--https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js-->>
-<script src="{{ url_for('static', filename = 'js/recorder.js') }}"></script>
+{% block scripts %}
 <script src="{{ url_for('static', filename = 'js/pronounciation.js') }}"></script>
-{% endblock %}
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+{{ super() }}
+{% endblock scripts %}
