@@ -1,4 +1,5 @@
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     """Set Flask configuration from environment variables."""
@@ -11,7 +12,6 @@ class Config:
     # Static Assets
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
-    #COMPRESSOR_DEBUG = os.environ.get('COMPRESSOR_DEBUG')
 
     # Flask-SQLAlchemy
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')

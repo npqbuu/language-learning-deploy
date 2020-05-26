@@ -12,7 +12,7 @@ from sqlalchemy.orm import load_only
 # Import components
 from .models import *
 from .forms import *
-from .test import *
+from .crud import create
 
 # Algorithm
 from .algorithm import CAT, generate_bank, recognize_speech
@@ -23,7 +23,6 @@ import numpy as np
 
 @app.route("/")
 def index():
-
     # Test zone-----------------
     session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
     bank = generate_bank(len(session['all_questions']))
@@ -53,7 +52,7 @@ def profile():
     return render_template('profile.html', name=current_user.username)
 
 @app.route("/adaptivetest", methods=["GET", "POST"])
-def adaptivetest():
+def adaptivetest(): # TODO: FIX THIS
     # Question variables
     session['question'] = session['all_questions'][session['item_index']]
     form = AnswerForm()

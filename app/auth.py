@@ -64,5 +64,6 @@ def logout():
     return redirect(url_for('index'))
 
 admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Question, db.session))
 admin.add_view(ModelView(RandomWord, db.session))
+admin.add_view(ModelView(Category, db.session))
+admin.add_view(ModelView(Question, db.session))

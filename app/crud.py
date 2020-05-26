@@ -1,15 +1,13 @@
 import os
 
 from .models import *
-from app import db
+from app import db, staticdir
 import string
 import csv
 import numpy as np
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
 def pronounciation_questionbank(): 
-    link = os.path.join(basedir, 'static/data/words.txt')
+    link = os.path.join(staticdir, 'data/words.txt')
     with open(link, 'r') as f:
         lines = f.read().split(',')
     list_lines = []
@@ -23,12 +21,14 @@ def pronounciation_questionbank():
 
     db.session.commit()
 
-def csv_to_psql(link, category_id): 
-    
+def grammar_questionbank(): 
+    s = np.random.normal(5, 1, 100)
+
+    link = os.path.join(staticdir, 'data/grammar_questionbank.csv')
     f = open(link)
     reader = csv.reader(f)
     next(reader)
-    for row in reader:
+    for idx, row in enumerate(reader):
         title = row[0]
         choices = row[1:5]
         while '' in choices:
@@ -42,8 +42,18 @@ def csv_to_psql(link, category_id):
         else:
             answer = 3
 
-        diff = int(row[6])
-        question = Question(title=title, choices=choices, answer=answer, diff=diff, category_id=category_id)
+        diff = s[idx]
+        question = Question(title=title, choices=choices, answer=answer, diff=diff, category_id=1)
         db.session.add(question)
         
     db.session.commit()
+
+def category():
+    vocabulary = Category(name='Vocabulary')
+    db.session.add(vocabulary)
+
+    db.session.commit()
+
+def create():
+    #pronounciation_questionbank()
+    grammar_questionbank()

@@ -1,12 +1,18 @@
+import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_session import Session
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_bootstrap import Bootstrap
 
 # Globally accessible libraries
+basedir = os.path.abspath(os.path.dirname(__file__))
+staticdir = os.path.join(basedir, 'static')
 db = SQLAlchemy()
+migrate = Migrate()
 login_manager = LoginManager()
 admin = Admin()
 bootstrap = None
@@ -19,6 +25,7 @@ def create_app():
 
     # Initialize Plugins
     db.init_app(app)
+    migrate.init_app(app, db)
     Session(app)
     login_manager.init_app(app)
     admin.init_app(app)
