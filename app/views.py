@@ -16,6 +16,7 @@ from .crud import create
 
 # Algorithm
 from .algorithm import CAT, generate_bank, recognize_speech
+
 import speech_recognition as sr
 import urllib
 from bs4 import BeautifulSoup

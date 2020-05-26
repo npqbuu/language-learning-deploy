@@ -12,10 +12,9 @@ from flask_bootstrap import Bootstrap
 basedir = os.path.abspath(os.path.dirname(__file__))
 staticdir = os.path.join(basedir, 'static')
 db = SQLAlchemy()
-migrate = Migrate()
 login_manager = LoginManager()
 admin = Admin()
-bootstrap = None
+bootstrap = Bootstrap()
 
 
 def create_app():
@@ -25,13 +24,11 @@ def create_app():
 
     # Initialize Plugins
     db.init_app(app)
-    migrate.init_app(app, db)
     Session(app)
     login_manager.init_app(app)
     admin.init_app(app)
-
-    global bootstrap
-    bootstrap = Bootstrap(app)
+    bootstrap.init_app(app)
+    
 
     with app.app_context():
         from . import views, auth
