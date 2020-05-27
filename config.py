@@ -12,6 +12,7 @@ class Config:
     # Static Assets
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
+    SEND_FILE_MAX_AGE_DEFAULT = 300
 
     # Flask-SQLAlchemy
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/mylocaldb'

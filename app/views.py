@@ -1,7 +1,7 @@
 import os
 
 # Flask
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, send_from_directory
 from flask import current_app as app
 from flask_login import login_required, current_user
 
@@ -22,9 +22,15 @@ import urllib
 from bs4 import BeautifulSoup
 import numpy as np
 
+# ----------------------------------------------
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory(staticdir, path)
+
+# ----------------------------------------------
 @app.route("/")
 def index():
-    # Test zone-----------------
+
     session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
     bank = generate_bank(len(session['all_questions']))
     bank[:, 1] = [question.diff for question in session['all_questions']]
@@ -35,7 +41,7 @@ def index():
     session['cat'].administered_items.append(session['item_index'])
     session['progress'] = 0
     session['theta'] = session['cat'].thetas[0]
-    # --------------------------
+
     if current_user.is_anonymous:
         name = ''
     else:     
@@ -100,28 +106,29 @@ def pronounciation():
 
     return render_template("pronounciation.html", word = session['word'], result = result)
 
-@app.route("/pronounciation/result", methods=['POST'])
+@app.route("/pronounciation/result", methods=['POST', 'GET'])
 def result_pronounciation():
     word = session['word']
 
-    # Open file and write binary (blob) data
-    with open(os.path.join(staticdir, 'audio/pronounciation_user.wav'), 'wb') as f:
-        f.write(request.data)
-    # Speech recognition
-    response = recognize_speech(sr.Recognizer(), sr.AudioFile(os.path.join(staticdir, 'audio/pronounciation_user.wav')))
-    session['answer'] = response['transcription']
+    if request.method == "POST":
+        # Open file and write binary (blob) data
+        with open(url_for('static', 'audio/pronounciation_user.wav'), 'wb') as f:
+            f.write(request.data)
+        # Speech recognition
+        response = recognize_speech(sr.Recognizer(), sr.AudioFile(url_for('static', 'audio/pronounciation_user.wav')))
+        session['answer'] = response['transcription']
 
-    # Get correct pronounciation mp3 file from online dictionary Lexico
-    url = 'https://www.lexico.com/en/definition/' + word.lower()
-    page = urllib.request.urlopen(url)
-    soup = BeautifulSoup(page, features='lxml')
-    list_audios = soup.find_all('audio')
-    for link in list_audios:
-        try:
-            urllib.request.urlretrieve(link['src'], os.path.join(staticdir, 'audio/pronounciation_dict.wav'))
-            break
-        except:
-            print('Broken link')
+        # Get correct pronounciation mp3 file from online dictionary Lexico
+        url = 'https://www.lexico.com/en/definition/' + word.lower()
+        page = urllib.request.urlopen(url)
+        soup = BeautifulSoup(page, features='lxml')
+        list_audios = soup.find_all('audio')
+        for link in list_audios:
+            try:
+                urllib.request.urlretrieve(link['src'], url_for('static', 'audio/pronounciation_dict.wav'))
+                break
+            except:
+                print('Broken link')
 
     answer = session['answer']
     if answer != None:
