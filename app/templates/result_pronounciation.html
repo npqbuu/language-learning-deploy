@@ -6,17 +6,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>RESULT: {{ result }}</h3>
-            <h3>WORD: {{ word }}</h3>
+            <h4 class="card-title">Result: {{ result }}</h4>
+            <h4 class="card-title">Word: {{ word }}</h4>
             <audio controls>
-                <source src="{{ url_for('static', filename='audio/pronounciation_dict.wav') }}">
+                <source src="{{ link_audio }}">
             </audio>
-            <h3>YOUR ANSWER: {{ answer }}</h3>
+            <h4 class="card-title">Your answer: {{ answer }}</h4>
             <audio controls>
-                <source src="{{ url_for('static', filename='audio/pronounciation_user.wav') }}">
+                <source src="/audio/{{ word }}.wav">
             </audio>
             <form action="{{ url_for('pronounciation') }}">
-                <button id="btnNext" type="submit" class="btn btn-primary">Next Word</button>
+                <button id="btnNext" type="submit" class="btn btn-primary btn-lg">Next Word</button>
             </form>
         </div>
     </div>
