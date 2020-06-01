@@ -101,3 +101,32 @@ def recognize_speech(recognizer, record): # https://github.com/realpython/python
 
     return response
 
+
+def upload_blob(blob, key, bucket):
+    """
+    Function to write blob data to a file on an S3 bucket
+    """
+    import boto3
+    
+    s3_client = boto3.client('s3')
+    response = s3_client.put_object(Body=blob, Bucket=bucket, Key=key, ACL='public-read')
+
+    return response
+
+def get_dict_file(word):
+    import urllib
+    from bs4 import BeautifulSoup
+
+    # Get correct pronounciation mp3 file from online dictionary Lexico
+    url = 'https://www.lexico.com/en/definition/' + word.lower()
+    page = urllib.request.urlopen(url)
+    soup = BeautifulSoup(page, features='lxml')
+    list_audios = soup.find_all('audio')
+    for link in list_audios:
+        try:
+            urllib.request.urlopen(link['src'])
+            return link['src']
+        except:
+            print('Broken link')
+
+    return None

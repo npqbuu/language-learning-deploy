@@ -9,6 +9,7 @@ from flask_admin import Admin
 from flask_bootstrap import Bootstrap
 
 # Globally accessible libraries
+BUCKET = "stopatois"
 basedir = os.path.abspath(os.path.dirname(__file__))
 staticdir = os.path.join(basedir, 'static')
 db = SQLAlchemy()

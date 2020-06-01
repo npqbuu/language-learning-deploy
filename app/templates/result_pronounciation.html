@@ -13,7 +13,7 @@
             </audio>
             <h4 class="card-title">Your answer: {{ answer }}</h4>
             <audio controls>
-                <source src="/audio/{{ word }}.wav">
+                <source src="https://stopatois.s3.eu-west-3.amazonaws.com/audio/pronounciation_user.wav">
             </audio>
             <form action="{{ url_for('pronounciation') }}">
                 <button id="btnNext" type="submit" class="btn btn-primary btn-lg">Next Word</button>
