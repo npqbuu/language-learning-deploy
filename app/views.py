@@ -25,17 +25,6 @@ import numpy as np
 @app.route("/")
 def index():
 
-    session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
-    bank = generate_bank(len(session['all_questions']))
-    bank[:, 1] = [question.diff for question in session['all_questions']]
-    session['items'] = bank
-    session['cat'] = CAT(session['items'])
-
-    (_stop, session['item_index']) = session['cat'].item_selection() # Get first item
-    session['cat'].administered_items.append(session['item_index'])
-    session['progress'] = 0
-    session['theta'] = session['cat'].thetas[0]
-
     if current_user.is_anonymous:
         name = ''
     else:     
@@ -86,6 +75,36 @@ def adaptivetest(): # TODO: FIX THIS
 def result_adaptivetest():
     theta = session['cat'].thetas[-1]
     return render_template("result_adaptivetest.html", theta = theta)
+
+@app.route("/grammar")
+def grammar():
+    session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
+    bank = generate_bank(len(session['all_questions']))
+    bank[:, 1] = [question.diff for question in session['all_questions']]
+    session['items'] = bank
+    session['cat'] = CAT(session['items'])
+
+    (_stop, session['item_index']) = session['cat'].item_selection() # Get first item
+    session['cat'].administered_items.append(session['item_index'])
+    session['progress'] = 0
+    session['theta'] = session['cat'].thetas[0]
+
+    return redirect(url_for('adaptivetest'))
+
+@app.route("/vocabulary")
+def vocabulary():
+    session['all_questions'] = Question.query.filter(Question.category_id == '2').all()
+    bank = generate_bank(len(session['all_questions']))
+    bank[:, 1] = [question.diff for question in session['all_questions']]
+    session['items'] = bank
+    session['cat'] = CAT(session['items'])
+
+    (_stop, session['item_index']) = session['cat'].item_selection() # Get first item
+    session['cat'].administered_items.append(session['item_index'])
+    session['progress'] = 0
+    session['theta'] = session['cat'].thetas[0]
+
+    return redirect(url_for('adaptivetest'))
 
 @app.route("/pronounciation", methods=['GET', 'POST'])
 def pronounciation():
