@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{{ super() }}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <audio controls>
+                <source src="{{ link_audio }}">
+            </audio>
+            <form method="post">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_field(form.answer) }}
+                <br>
+                <button id="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

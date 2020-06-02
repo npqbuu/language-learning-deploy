@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{{ super() }}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="card-title">Result: {{ result }}</h4>
+            <audio controls>
+                <source src="{{ link_audio }}">
+            </audio>
+            <h4 class="card-title">Word: {{ word }}</h4>
+            <form action="{{ url_for('listening') }}">
+                <button id="btnNext" type="submit" class="btn btn-primary btn-lg">Next Word</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

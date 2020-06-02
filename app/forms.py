@@ -35,3 +35,6 @@ class RegisterForm(FlaskForm):
 
 class AnswerForm(FieldsRequiredForm):
     answer = RadioField('answer', choices=[], coerce=int)
+
+class ListeningForm(FlaskForm):
+    answer = StringField('answer')

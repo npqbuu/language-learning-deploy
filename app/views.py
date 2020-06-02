@@ -120,3 +120,31 @@ def result_pronounciation():
         result = "Unable to recognize speech"
 
     return render_template("result_pronounciation.html", result = result, word= word, answer = answer.capitalize(), link_audio = get_dict_file(word))
+
+@app.route("/listening/test", methods=["GET", "POST"])
+def listening():
+    form = ListeningForm()
+
+    if request.method == "GET":
+        session['result_listening'] = None
+        session['word_listening'] = RandomWord.query.options(load_only('id')).offset(
+            func.floor(
+                func.random() *
+                db.session.query(func.count(RandomWord.id))
+            )
+        ).limit(1).all()[0].word.capitalize()
+        
+    if form.validate_on_submit():
+        if form.answer.data.lower() == session['word_listening'].lower():
+            session['result_listening'] = True
+        else:
+            session['result_listening'] = False
+        
+        return redirect(url_for('result_listening'))
+
+    return render_template("listening.html",form = form, link_audio = get_dict_file(session['word_listening']))
+
+@app.route("/listening/result")
+def result_listening():
+
+    return render_template("result_listening.html", word = session['word_listening'], result = session['result_listening'], link_audio = get_dict_file(session['word_listening']))
