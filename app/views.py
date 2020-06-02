@@ -42,6 +42,7 @@ def profile():
     return render_template('profile.html', name=current_user.username)
 
 @app.route("/adaptivetest", methods=["GET", "POST"])
+@login_required
 def adaptivetest(): # TODO: FIX THIS
     # Question variables
     session['question'] = session['all_questions'][session['item_index']]
@@ -72,11 +73,13 @@ def adaptivetest(): # TODO: FIX THIS
     return render_template("adaptivetest.html", title = title, theta = session['theta'], progress = session['progress'], form = form)
 
 @app.route("/adaptivetest/result")
+@login_required
 def result_adaptivetest():
     theta = session['cat'].thetas[-1]
     return render_template("result_adaptivetest.html", theta = theta)
 
 @app.route("/grammar")
+@login_required
 def grammar():
     session['all_questions'] = Question.query.filter(Question.category_id == '1').all()
     bank = generate_bank(len(session['all_questions']))
@@ -92,6 +95,7 @@ def grammar():
     return redirect(url_for('adaptivetest'))
 
 @app.route("/vocabulary")
+@login_required
 def vocabulary():
     session['all_questions'] = Question.query.filter(Question.category_id == '2').all()
     bank = generate_bank(len(session['all_questions']))
@@ -107,6 +111,7 @@ def vocabulary():
     return redirect(url_for('adaptivetest'))
 
 @app.route("/pronounciation", methods=['GET', 'POST'])
+@login_required
 def pronounciation():
     if request.method == "GET":
         result = ''
@@ -120,6 +125,7 @@ def pronounciation():
     return render_template("pronounciation.html", word = session['word'], result = result)
 
 @app.route("/pronounciation/result", methods=['POST', 'GET'])
+@login_required
 def result_pronounciation():
     word = session['word']
 
@@ -141,6 +147,7 @@ def result_pronounciation():
     return render_template("result_pronounciation.html", result = result, word= word, answer = answer.capitalize(), link_audio = get_dict_file(word))
 
 @app.route("/listening/test", methods=["GET", "POST"])
+@login_required
 def listening():
     form = ListeningForm()
 
@@ -164,6 +171,7 @@ def listening():
     return render_template("listening.html",form = form, link_audio = get_dict_file(session['word_listening']))
 
 @app.route("/listening/result")
+@login_required
 def result_listening():
 
     return render_template("result_listening.html", word = session['word_listening'], result = session['result_listening'], link_audio = get_dict_file(session['word_listening']))
