@@ -13,7 +13,7 @@ Stopatois
   <header class="jumbotron my-4">
     {% if current_user.is_anonymous %}
     <h1 class="display-3">A Warm Welcome</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+    <p class="lead">Build skills with Stopatois. Explore thousands of English quiz. Start Today!</p>
     <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">Register Now!</a>
     {% else %}
     <h1 class="display-3">Hello <i>{{ name }}</i>, welcome back!</h1>
@@ -28,7 +28,7 @@ Stopatois
         <img class="card-img-top" src="https://stopatois.s3.eu-west-3.amazonaws.com/img/grammar.jpg" alt="">
         <div class="card-body">
           <h4 class="card-title">Grammar</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          
         </div>
         <div class="card-footer">
           <a href="{{ url_for('grammar') }}" class="btn btn-primary">Find Out More</a>
@@ -41,7 +41,7 @@ Stopatois
         <img class="card-img-top" src="https://stopatois.s3.eu-west-3.amazonaws.com/img/vocabulary.jpg" alt="">
         <div class="card-body">
           <h4 class="card-title">Vocabulary</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          
         </div>
         <div class="card-footer">
           <a href="{{ url_for('vocabulary') }}" class="btn btn-primary">Find Out More</a>
@@ -54,7 +54,7 @@ Stopatois
         <img class="card-img-top" src="https://stopatois.s3.eu-west-3.amazonaws.com/img/listening.jpg" alt="">
         <div class="card-body">
           <h4 class="card-title">Listening</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          
         </div>
         <div class="card-footer">
           <a href="{{ url_for('listening') }}" class="btn btn-primary">Find Out More</a>
@@ -67,7 +67,7 @@ Stopatois
         <img class="card-img-top" src="https://stopatois.s3.eu-west-3.amazonaws.com/img/pronounciation.jpg" alt="">
         <div class="card-body">
           <h4 class="card-title">Pronounciation</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          
         </div>
         <div class="card-footer">
           <a href="{{ url_for('pronounciation') }}" class="btn btn-primary">Find Out More</a>
